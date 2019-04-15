@@ -26,7 +26,7 @@ void fun1(void *arg)
 {
     int i = 0;
     struct pair *p = (struct pair*)arg;
-    char *s = malloc(4096); 
+    char *s = malloc(10); 
     uthread_t u2 = uthread_create(s,4096);
     struct pair _p = {u2,p->self}; 
     uthread_run(p->self,u2,fun2,&_p);

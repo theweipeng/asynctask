@@ -13,18 +13,19 @@ _ha:                                    ## @ha
 	movq	%rdi, -8(%rbp)
 	movq	%rsi, -16(%rbp)
 	movq	%rdx, -24(%rbp)
-	movq	-8(%rbp), %rdx
-	movl	$0, (%rdx)
-	movq	-8(%rbp), %rdx
-	movl	$1, 4(%rdx)
-	movq	-16(%rbp), %rdx
-	movl	$0, (%rdx)
-	movq	-16(%rbp), %rdx
-	movl	$1, 4(%rdx)
-	movq	-24(%rbp), %rdx
-	movl	$0, (%rdx)
-	movq	-24(%rbp), %rdx
-	movl	$1, 4(%rdx)
+	movq	%rcx, -32(%rbp)
+	movq	-8(%rbp), %rcx
+	movl	$0, (%rcx)
+	movq	-8(%rbp), %rcx
+	movl	$1, 4(%rcx)
+	movq	-16(%rbp), %rcx
+	movl	$0, (%rcx)
+	movq	-16(%rbp), %rcx
+	movl	$1, 4(%rcx)
+	movq	-24(%rbp), %rcx
+	movl	$0, (%rcx)
+	movq	-24(%rbp), %rcx
+	movl	$1, 4(%rcx)
 	popq	%rbp
 	retq
 	.cfi_endproc
@@ -46,11 +47,12 @@ _main:                                  ## @main
 	movq	-24(%rbp), %rdi
 	movq	-32(%rbp), %rsi
 	movq	-40(%rbp), %rdx
+	movq	-40(%rbp), %rcx
 	callq	_ha
 	movl	-8(%rbp), %eax
 	addl	-12(%rbp), %eax
-	movq	-24(%rbp), %rdx
-	addl	(%rdx), %eax
+	movq	-24(%rbp), %rcx
+	addl	(%rcx), %eax
 	movl	%eax, -44(%rbp)
 	movl	-44(%rbp), %eax
 	addq	$48, %rsp

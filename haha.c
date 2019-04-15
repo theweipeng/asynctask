@@ -6,7 +6,7 @@ struct Bp
 };
 
 
-void ha(struct Bp *s, struct Bp *s2, struct Bp *s3) {
+void ha(struct Bp *s, struct Bp *s2, struct Bp *s3, struct Bp *s4) {
     s->a = 0;
     s->b = 1;
     s2->a = 0;
@@ -21,7 +21,7 @@ int main() {
     struct Bp *p;
     struct Bp *p2;
     struct Bp *p3;
-    ha(p, p2, p3);
+    ha(p, p2, p3, p3);
     int c = a + b + p->a;
     return c;
 }
