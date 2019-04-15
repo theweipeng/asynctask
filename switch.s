@@ -3,72 +3,70 @@
 .globl    _uthread_switch
 uthread_switch:
 _uthread_switch: ##arg from to
-    movl 4(%esp), %eax 
-    movl %ebp, 0(%eax)
-    movl %esp, 4(%eax)
-    movl %ebx, 8(%eax)
-    movl %edi, 12(%eax)
-    movl %esi, 16(%eax)
-    movl 8(%esp), %eax
-    movl 0(%eax), %ebp 
-    movl 4(%eax), %esp
-    movl 8(%eax), %ebx
-    movl 12(%eax),%edi
-    movl 16(%eax),%esi
-    ret
+    pushq %rbp
+    movq -4(%rsp), %rbp
+    movq %rsp, 4(%rbp)
+    movq %rbx, 8(%rbp)
+    movq %rdi, 12(%rbp)
+    movq %rsi, 16(%rbp)
+    pushq %rax
+    movq %rax, 0(%rbp)
+
+    movq 4(%rbp), %rsp
+    movq 8(%rbp), %rbx
+    movq 12(%rbp),%rdi
+    movq 16(%rbp),%rsi
+    movq 0(%rbp), %rbp 
+
+    retq
 .align    4
 .globl    uthread_run1
 .globl    _uthread_run1
 uthread_run1:
 _uthread_run1: ##arg u_context
-    movl 4(%esp),%eax
-    movl %ebp,20(%eax) #save register
-    movl %esp,24(%eax)
-    movl %ebx,28(%eax)
-    movl %edi,32(%eax)
-    movl %esi,36(%eax)
-    movl 12(%esp),%ecx #get arg
-    movl 8(%esp),%edx #get st_fun
-    movl 0(%eax),%esp  #change stack
-    movl %esp,%ebp
-    pushl %eax
-    pushl %ecx     #push arg
-    call  *%edx    #call st_fun
-    popl  %eax
-    popl  %eax
-    movl 20(%eax),%ebp    #restore register
-    movl 24(%eax),%esp
-    movl 28(%eax),%ebx
-    movl 32(%eax),%edi
-    movl 36(%eax),%esi
-    movl $1,44(%eax)
+    movq -24(%rsp),%rax
+
+    movq %rbp,20(%rax)
+    movq %rsp,24(%rax)
+    movq %rbx,28(%rax)
+    movq %rdi,32(%rax)
+    movq %rsi,36(%rax)
+
+    movq %rdx, %rdi # 参数
+    call  *%rsi # 函数
+
+    movq 20(%rax),%rbp    # 恢复寄存器现场
+    movq 24(%rax),%rsp
+    movq 28(%rax),%rbx
+    movq 32(%rax),%rdi
+    movq 36(%rax),%rsi
     ret
 .align    4
 .globl    uthread_run2
 .globl    _uthread_run2
 uthread_run2:#param p,u,start_fun,arg
 _uthread_run2:
-    movl 4(%esp),%eax  #get p
-    movl %ebp,0(%eax) #save register of p
-    movl %esp,4(%eax)
-    movl %ebx,8(%eax)
-    movl %edi,12(%eax)
-    movl %esi,16(%eax)
-    movl 8(%esp),%eax  #get u
-    movl 16(%esp),%ecx #get arg
-    movl 12(%esp),%edx #get st_fun
-    movl 0(%eax),%esp  #change stack
-    movl %esp,%ebp
-    pushl %eax
-    pushl %ecx     #push arg
-    call  *%edx    #call st_fun
-    popl  %eax
-    popl  %eax
-    movl $1,44(%eax)
-    movl 40(%eax),%eax   #get parent
-    movl 0(%eax),%ebp    #restore register
-    movl 4(%eax),%esp
-    movl 8(%eax),%ebx
-    movl 12(%eax),%edi
-    movl 16(%eax),%esi
+    movq 4(%rsp),%rax  #get p
+    movq %rbp,0(%rax) #save register of p
+    movq %rsp,4(%rax)
+    movq %rbx,8(%rax)
+    movq %rdi,12(%rax)
+    movq %rsi,16(%rax)
+    movq 8(%rsp),%rax  #get u
+    movq 16(%rsp),%rcx #get arg
+    movq 12(%rsp),%rdx #get st_fun
+    movq 0(%rax),%rsp  #change stack
+    movq %rsp,%rbp
+    pushq %rax
+    pushq %rcx     #push arg
+    callq  *%rdx    #call st_fun
+    popq  %rax
+    popq  %rax
+    movq $1,44(%rax)
+    movq 40(%rax),%rax   #get parent
+    movq 0(%rax),%rbp    #restore register
+    movq 4(%rax),%rsp
+    movq 8(%rax),%rbx
+    movq 12(%rax),%rdi
+    movq 16(%rax),%rsi
     ret

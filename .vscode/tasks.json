@@ -6,9 +6,8 @@
       "command": "/usr/bin/gcc",
       "args": [
         "-g",
-        "-m32",
         "${file}",
-        "/Users/bigteech/OneDrive/asynctask/switch.s",
+        "/Users/bigteech/Desktop/asynctask/switch.s",
         "-o",
         "${fileDirname}/${fileBasenameNoExtension}"
       ],

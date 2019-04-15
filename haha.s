@@ -10,11 +10,21 @@ _ha:                                    ## @ha
 	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
-	movl	%edi, -4(%rbp)
-	movl	%esi, -8(%rbp)
-	movl	-4(%rbp), %esi
-	addl	-8(%rbp), %esi
-	movl	%esi, %eax
+	movq	%rdi, -8(%rbp)
+	movq	%rsi, -16(%rbp)
+	movq	%rdx, -24(%rbp)
+	movq	-8(%rbp), %rdx
+	movl	$0, (%rdx)
+	movq	-8(%rbp), %rdx
+	movl	$1, 4(%rdx)
+	movq	-16(%rbp), %rdx
+	movl	$0, (%rdx)
+	movq	-16(%rbp), %rdx
+	movl	$1, 4(%rdx)
+	movq	-24(%rbp), %rdx
+	movl	$0, (%rdx)
+	movq	-24(%rbp), %rdx
+	movl	$1, 4(%rdx)
 	popq	%rbp
 	retq
 	.cfi_endproc
@@ -29,21 +39,21 @@ _main:                                  ## @main
 	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
-	subq	$32, %rsp
-	movl	$5, %edi
-	movl	$6, %esi
+	subq	$48, %rsp
 	movl	$0, -4(%rbp)
 	movl	$1, -8(%rbp)
 	movl	$2, -12(%rbp)
+	movq	-24(%rbp), %rdi
+	movq	-32(%rbp), %rsi
+	movq	-40(%rbp), %rdx
+	callq	_ha
 	movl	-8(%rbp), %eax
 	addl	-12(%rbp), %eax
-	movl	%eax, -20(%rbp)         ## 4-byte Spill
-	callq	_ha
-	movl	-20(%rbp), %esi         ## 4-byte Reload
-	addl	%eax, %esi
-	movl	%esi, -16(%rbp)
-	movl	-16(%rbp), %eax
-	addq	$32, %rsp
+	movq	-24(%rbp), %rdx
+	addl	(%rdx), %eax
+	movl	%eax, -44(%rbp)
+	movl	-44(%rbp), %eax
+	addq	$48, %rsp
 	popq	%rbp
 	retq
 	.cfi_endproc
