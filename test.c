@@ -10,11 +10,14 @@ void fun3()
 
 void fun2()
 {
+    int aa2 = 1 + 1;
     task_yield();
+    int aa = 1 + 1;
 }
 
 void fun1()
 {
+    int aa2 = 1 + 1;
     task_yield();
     int aa = 1 + 1;
 }

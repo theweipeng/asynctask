@@ -40,4 +40,24 @@ _run_and_store:
 
     call *%rsi
 
-    ret
+    retq
+
+.align    4
+.globl   run_and_restore
+.globl    _run_and_restore
+run_and_restore:
+_run_and_restore: 
+    popq %r8
+    movq %rbp, 0(%rdi)
+    movq %rsp, 8(%rdi)
+    movq %rbx, 16(%rdi)
+    movq %rdi, 24(%rdi)
+    movq %r8, 32(%rdi)
+    push %r8
+
+    movq 0(%rsi), %rbp 
+    movq 8(%rsi), %rsp
+    movq 16(%rsi), %rbx
+    movq 24(%rsi),%rdi
+    movq 32(%rsi),%rsi
+    jmp *32(%rsi)

@@ -30,8 +30,10 @@ void restore(taskinfo_t* t);
 
 void run_and_store(taskinfo_t* t, start_fun _start_fun);
 
+void run_and_restore(taskinfo_t* t, start_fun _start_fun);
 
-#define TASKLENGTH 100000
+
+#define TASKLENGTH 10
 
 task_t* current;
 task_t tasks[TASKLENGTH];
@@ -50,11 +52,6 @@ void push_task(taskinfo_t t)
     }
 }
 
-void task_switch(task_t u) {
-    restore(&(u.handler));
-}
-
-
 void start_loop()
 {
     current = &main_task;
@@ -66,12 +63,12 @@ void start_loop()
             task_t u = tasks[i];
             if(u.status == 1)
             {
-                store(&(main_task.handler));
                 current = &u;
-                task_switch(u);
+                run_and_restore(&(main_task.handler), &(u.handler));
             } else if (u.status == 2)
             {
                 current = &u;
+                tasks[i].status = 1;
                 run_and_store(&(main_task.handler), u.handler._start_fun);
                 printf("%s", "hfe");
             }
@@ -80,6 +77,7 @@ void start_loop()
 }
 
 void task_switch_to_main() {
+    current = &main_task;
     restore(&(main_task.handler));
 }
 
