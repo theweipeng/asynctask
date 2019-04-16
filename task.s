@@ -38,6 +38,6 @@ _run_and_store:
     movq %r8, 32(%rdi)
     push %r8
 
-    callq *%rsi
+    call *%rsi
 
     retq

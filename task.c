@@ -72,7 +72,7 @@ void start_loop()
             } else if (u.status == 2)
             {
                 current = &u;
-                run_and_store(&(main_task.handler), u.handler._start_fun);
+                run_and_store(&(main_task.handler), &u.handler._start_fun);
                 printf("%s", "hfe");
             }
         }
