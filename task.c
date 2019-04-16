@@ -72,17 +72,20 @@ void start_loop()
             } else if (u.status == 2)
             {
                 current = &u;
-                run_and_store(&(main_task.handler), &u.handler._start_fun);
+                run_and_store(&(main_task.handler), u.handler._start_fun);
                 printf("%s", "hfe");
             }
         }
     }
 }
 
+void task_switch_to_main() {
+    restore(&(main_task.handler));
+}
+
 void task_yield()
 {
-    store(&(current->handler));
-    task_switch(main_task);
+    run_and_store(&(current->handler), task_switch_to_main);
 }
 
 void task_run(void *stack, int stack_size, start_fun _start_fun)

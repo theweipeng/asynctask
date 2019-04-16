@@ -40,4 +40,4 @@ _run_and_store:
 
     call *%rsi
 
-    retq
+    ret

@@ -3,25 +3,20 @@
 #include <stdint.h>
 #include "task.c"
 
-void fun3(void *arg)
+void fun3()
 {
-    printf("%s", "fun3 start");
     task_yield();
-    printf("%s", "fun3 end");
 }
 
-void fun2(void *arg)
+void fun2()
 {
-    printf("%s", "fun2 start");
     task_yield();
-    printf("%s", "fun2 end");
 }
 
-void fun1(void *arg)
+void fun1()
 {
-    printf("%s", "fun1 start");
     task_yield();
-    printf("%s", "fun1 end");
+    int aa = 1 + 1;
 }
 
 int main()
