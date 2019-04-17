@@ -1,4 +1,0 @@
- breakpoint set  --file uthread.c --line 44
- read register
-  gcc -S haha.c
-  /usr/bin/gcc -g /Users/bigteech/Desktop/asynctask/test.c /Users/bigteech/Desktop/asynctask/task.s  -o /Users/bigteech/Desktop/asynctask/test
