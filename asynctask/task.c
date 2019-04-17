@@ -79,9 +79,12 @@ void task_switch_to_main() {
     restore(&(main_task.handler));
 }
 
+
+
 void task_yield()
 {
     run_and_store(&(tasks[current].handler), task_switch_to_main);
+    int  h = 1 + 1;
 }
 
 void task_run(void *stack, int stack_size, start_fun _start_fun)

@@ -60,4 +60,5 @@ _run_and_restore:
     movq 16(%rsi), %rbx
     movq 24(%rsi),%rdi
     movq 32(%rsi),%rsi
+
     jmp *%rsi
