@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "task.h": "c"
+        "task.h": "c",
+        "task.s": "c",
+        "task.c": "c"
     }
 }

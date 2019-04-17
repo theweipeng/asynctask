@@ -8,6 +8,7 @@
         "-g",
         "${file}",
         "${fileDirname}/task.s",
+        "${fileDirname}/task.c",
         "-o",
         "${fileDirname}/${fileBasenameNoExtension}"
       ],
