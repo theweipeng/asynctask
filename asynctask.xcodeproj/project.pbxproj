@@ -27,9 +27,8 @@
 /* Begin PBXFileReference section */
 		8FA52CD12266C35200715765 /* asynctask */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = asynctask; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FA52CD42266C35200715765 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		8FA52CE22266CFDF00715765 /* task.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = task.s; path = ../../asynctask2/task.s; sourceTree = "<group>"; };
-		8FA52CE72266CFE000715765 /* task.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = task.c; path = ../../asynctask2/task.c; sourceTree = "<group>"; };
-		8FA52CEE2266CFE000715765 /* help.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = help.txt; path = ../../asynctask2/help.txt; sourceTree = "<group>"; };
+		8FA52CE22266CFDF00715765 /* task.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = task.s; sourceTree = "<group>"; };
+		8FA52CE72266CFE000715765 /* task.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = task.c; sourceTree = "<group>"; };
 		8FA52CF72266D13200715765 /* task.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = task.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -63,7 +62,6 @@
 		8FA52CD32266C35200715765 /* asynctask */ = {
 			isa = PBXGroup;
 			children = (
-				8FA52CEE2266CFE000715765 /* help.txt */,
 				8FA52CE72266CFE000715765 /* task.c */,
 				8FA52CE22266CFDF00715765 /* task.s */,
 				8FA52CD42266C35200715765 /* main.c */,
