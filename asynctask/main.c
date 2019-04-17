@@ -3,10 +3,6 @@
 #include <stdint.h>
 #include "task.h"
 
-void fun3()
-{
-    task_yield();
-}
 
 void fun2()
 {

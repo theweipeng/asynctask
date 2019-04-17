@@ -79,13 +79,20 @@ void task_switch_to_main() {
     restore(&(main_task.handler));
 }
 
+typedef void* (*task_switch_to_main_fun)();
 
-
-void task_yield()
-{
-    run_and_store(&(tasks[current].handler), task_switch_to_main);
-    int  h = 1 + 1;
+task_switch_to_main_fun get_fun_to_switch_to_main() {
+    return task_switch_to_main;
 }
+
+taskinfo_t* get_current_taskinfo() {
+    return &(tasks[current].handler);
+}
+
+// void task_yield()
+// {
+//     run_and_store(get_current_taskinfo(), task_switch_to_main);
+// }
 
 void task_run(void *stack, int stack_size, start_fun _start_fun)
 {
