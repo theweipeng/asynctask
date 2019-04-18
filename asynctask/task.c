@@ -92,11 +92,6 @@ void set_current_done() {
     tasks[current].status = 0;
 }
 
-// void task_yield()
-// {
-//     run_and_store(get_current_taskinfo(), task_switch_to_main);
-// }
-
 void task_run(void *stack, int stack_size, start_fun _start_fun)
 {
     taskinfo_t u;
