@@ -37,10 +37,9 @@ _run_and_store:
     movq %rdi, 24(%rdi)
     movq %r8, 32(%rdi)
     push %r8
-
-    call *%rsi
-
-    ret
+    popq %rdx
+    callq *%rsi
+    retq
 
 .align    4
 .globl   run_and_restore
