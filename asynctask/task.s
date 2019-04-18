@@ -60,7 +60,11 @@ _run_and_restore:
     movq 24(%rsi),%rdi
     movq 32(%rsi),%rsi
 
-    jmp *%rsi
+    popq %rdx
+    callq *%rsi
+    callq _set_current_done
+    callq _get_current_taskinfo
+    callq *%rax
 
 
 .align    4

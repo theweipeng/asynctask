@@ -88,6 +88,10 @@ taskinfo_t* get_current_taskinfo() {
     return &(tasks[current].handler);
 }
 
+void set_current_done() {
+    tasks[current].status = 0;
+}
+
 // void task_yield()
 // {
 //     run_and_store(get_current_taskinfo(), task_switch_to_main);
