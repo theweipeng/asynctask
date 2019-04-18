@@ -6,16 +6,16 @@
 
 void fun2()
 {
-    int aa2 = 1 + 1;
+    printf("%s", "jahah");
     task_yield();
     int aa = 1 + 1;
 }
 
 void fun1()
 {
-    int aa2 = 1 + 1;
+    printf("%s", "jahah");
     task_yield();
-    int aa = 1 + 1;
+    printf("%s", "jahah");
 }
 
 int main()
