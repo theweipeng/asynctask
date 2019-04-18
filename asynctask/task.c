@@ -68,7 +68,6 @@ void start_loop()
                 current = i;
                 tasks[i].status = 1;
                 run_and_store(&(main_task.handler), tasks[i].handler._start_fun);
-                printf("%s", "hfe");
             }
         }
     }
