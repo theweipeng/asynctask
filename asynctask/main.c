@@ -24,12 +24,20 @@ void fun3()
     task_yield();
     printf("%s", "fun3 end\n");
 }
+
+void fun4()
+{
+    printf("%s", "fun4 start\n");
+    printf("%s", "fun4 end\n");
+}
+
 int main()
 {
     char *s = malloc(4096);
     task_run(10, 4096, fun1);
     task_run(10, 4096, fun2);
     task_run(10, 4096, fun3);
+    task_run(10, 4096, fun4);
     start_loop();
     return 0;
 }
