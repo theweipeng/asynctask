@@ -33,11 +33,9 @@ void fun4()
 
 int main()
 {
-    char *s = malloc(4096);
     task_run(10, 4096, fun1);
     task_run(10, 4096, fun2);
     task_run(10, 4096, fun3);
-    task_run(10, 4096, fun4);
     start_loop();
     return 0;
 }
