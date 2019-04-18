@@ -74,6 +74,10 @@ void start_loop()
     }
 }
 
+void set_task_stop() {
+    tasks[current].status = 0;
+}
+
 void task_switch_to_main() {
     current = -1;
     restore(&(main_task.handler));
@@ -89,7 +93,7 @@ taskinfo_t* get_current_taskinfo() {
     return &(tasks[current].handler);
 }
 
-void set_current_done() {
+void set_current_task_done() {
     tasks[current].status = 0;
 }
 

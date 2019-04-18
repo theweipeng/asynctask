@@ -39,7 +39,9 @@ _run_and_store:
     push %r8
     popq %rdx
     callq *%rsi
-    retq
+    callq _set_current_task_done
+    callq _task_switch_to_main
+
 
 .align    4
 .globl   run_and_restore
