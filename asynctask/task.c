@@ -63,11 +63,13 @@ void start_loop()
             {
                 current = i;
                 run_and_restore(&(main_task.handler), &(tasks[i].handler));
+                tasks[i].status = 0;
             } else if (tasks[i].status == 2)
             {
                 current = i;
                 tasks[i].status = 1;
                 run_and_store(&(main_task.handler), tasks[i].handler._start_fun);
+                
             }
         }
     }
