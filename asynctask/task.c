@@ -33,12 +33,21 @@ void run_and_restore(taskinfo_t* t, start_fun _start_fun);
 
 
 #define TASKLENGTH 10
+#define TASKDONEFLAG 108
 
 int current;
+int currenttaskflag;
 task_t main_task;
 task_t tasks[TASKLENGTH];
 task_t main_task = {0,0};
 
+void set_currenttaskflag_done() {
+    currenttaskflag = 0;
+}
+
+void set_currenttaskflag_running() {
+    currenttaskflag = 1;
+}
 
 void push_task(taskinfo_t t)
 {
@@ -63,7 +72,9 @@ void start_loop()
             {
                 current = i;
                 run_and_restore(&(main_task.handler), &(tasks[i].handler));
-                tasks[i].status = 0;
+                if (currenttaskflag == 0) {
+                    tasks[i].status = 0;
+                }
             } else if (tasks[i].status == 2)
             {
                 current = i;

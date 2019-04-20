@@ -8,7 +8,9 @@ void fun2()
 {
     printf("%s", "fun2 start\n");
     task_yield();
-    printf("%s", "fun2 end\n");
+    printf("%s", "fun2 start2\n");
+    task_yield();
+    printf("%s", "fun2 start3\n");
 }
 
 void fun1()
@@ -18,25 +20,10 @@ void fun1()
     printf("%s", "fun1 end\n");
 }
 
-void fun3()
-{
-    printf("%s", "fun3 start\n");
-    task_yield();
-    printf("%s", "fun3 end\n");
-}
-
-void fun4()
-{
-    printf("%s", "fun4 start\n");
-    printf("%s", "fun4 end\n");
-}
-
 int main()
 {
     task_run(10, 4096, fun1);
     task_run(10, 4096, fun2);
-    task_run(10, 4096, fun3);
-    task_run(10, 4096, fun4);
     start_loop();
     return 0;
 }
