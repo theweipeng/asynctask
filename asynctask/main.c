@@ -20,10 +20,18 @@ void fun1()
     printf("%s", "fun1 end\n");
 }
 
+void fun3()
+{
+    printf("%s", "fun3 start\n");
+
+    printf("%s", "fun3 end\n");
+}
+
 int main()
 {
     task_run(10, 4096, fun1);
     task_run(10, 4096, fun2);
+    task_run(10, 4096, fun3);
     start_loop();
     return 0;
 }
