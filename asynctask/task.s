@@ -11,26 +11,6 @@ _restore:
     jmp *%rsi
 
 .align    4
-.globl   run_and_store
-.globl    _run_and_store
-run_and_store:
-_run_and_store: 
-    popq %r8
-    movq %rbp, 0(%rdi)
-    movq %rsp, 8(%rdi)
-    movq %rbx, 16(%rdi)
-    movq %rdi, 24(%rdi)
-    movq %r8, 32(%rdi)
-    push %r8
-    popq %rdx
-
-    callq *%rsi
-    movq %rax, %rdi
-    callq _set_current_task_done
-    callq _set_result
-    callq _task_switch_to_main
-
-.align    4
 .globl   get_fu_run_status
 .globl    _get_fu_run_status
 get_fu_run_status:
@@ -68,10 +48,10 @@ _run_and_restore:
     retq
 
 .align    4
-.globl   run_and_store2
-.globl    _run_and_store2
-run_and_store2:
-_run_and_store2:
+.globl   run_and_store
+.globl    _run_and_store
+run_and_store:
+_run_and_store:
     movq %rbp, 0(%rdi)
     movq %rsp, 8(%rdi)
     movq %rbx, 16(%rdi)
@@ -91,7 +71,7 @@ _task_yield:
     movq %rax, %rdi
     call _get_fun_to_switch_to_main
     movq %rax, %rsi
-    jmp _run_and_store2
+    jmp _run_and_store
 
 
 .align    4
