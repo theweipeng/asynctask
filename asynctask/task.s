@@ -39,7 +39,9 @@ _run_and_store:
     push %r8
     popq %rdx
     callq *%rsi
+    movq %rax, %rdi
     callq _set_current_task_done
+    callq _set_result
     callq _task_switch_to_main
 
 .align    4
@@ -100,3 +102,51 @@ _task_yield:
     movq %rax, %rsi
     jmp _run_and_store2
 
+
+.align    4
+.globl   get_rax
+.globl    _get_rax
+get_rax:
+_get_rax:
+retq
+
+
+.align    4
+.globl   get_rip
+.globl    _get_rip
+get_rip:
+_get_rip:
+popq %rax
+pushq %rax
+retq
+
+
+.has_rsult:
+popq %rdi
+pushq %rax
+callq _get_waitaddr
+movq %rax, %rdi
+popq %rax
+jmp *%rdi
+
+.not_has_rsult:
+callq _set_waiting
+jmp _task_yield
+
+
+
+.align    4
+.globl   task_await
+.globl    _task_await
+task_await:
+_task_await:
+    popq %rdi
+    callq _set_waitaddr
+    push %rdi
+    callq _get_rip
+    pushq %rax
+
+    callq _get_result
+    cmpq $0, %rax
+    je .not_has_rsult
+    jmp .has_rsult

@@ -4,26 +4,9 @@
 #include "task.h"
 
 
-struct taskinfo
-{
-    //0:rbp,1:rsp,2:rbx,3:rdi,4:rsi
-    u_int64_t reg[5];
-    void *stack;
-    start_fun _start_fun;
-    void *start_arg;
-    u_int64_t stack_size;
-};
-typedef struct taskinfo taskinfo_t;
-
-struct task
-{
-    int status; // 0: stop 1: running 2: new
-    taskinfo_t handler;
-};
-
-typedef struct task task_t;
-
 void store(taskinfo_t* t);
+
+u_int64_t get_rax();
 
 void restore(taskinfo_t* t);
 
@@ -32,7 +15,7 @@ void run_and_store(taskinfo_t* t, start_fun _start_fun);
 void run_and_restore(taskinfo_t* t, start_fun _start_fun);
 
 
-#define TASKLENGTH 10
+#define TASKLENGTH 3
 #define TASKDONEFLAG 108
 
 int current;
@@ -40,6 +23,7 @@ int currenttaskflag;
 task_t main_task;
 task_t tasks[TASKLENGTH];
 task_t main_task = {0,0};
+
 
 void set_currenttaskflag_done() {
     currenttaskflag = 0;
@@ -49,16 +33,17 @@ void set_currenttaskflag_running() {
     currenttaskflag = 1;
 }
 
-void push_task(taskinfo_t t)
+task_t* push_task(taskinfo_t t)
 {
     for (int i = 0; i < TASKLENGTH; i++)
     {
         if(!tasks[i].status) {
             tasks[i].status = 2;
             tasks[i].handler = t;
-            return;
+            return &tasks[i];
         }
     }
+    return 0;
 }
 
 void start_loop()
@@ -74,6 +59,8 @@ void start_loop()
                 run_and_restore(&(main_task.handler), &(tasks[i].handler));
                 if (currenttaskflag == 0) {
                     tasks[i].status = 0;
+                    tasks[tasks[i].handler.parent].status = 1;
+                    tasks[tasks[i].handler.parent].handler.result = get_rax();
                 }
             } else if (tasks[i].status == 2)
             {
@@ -108,7 +95,7 @@ void set_current_task_done() {
     tasks[current].status = 0;
 }
 
-void task_run(void *stack, int stack_size, start_fun _start_fun)
+task_t* task_run(void *stack, int stack_size, start_fun _start_fun)
 {
     taskinfo_t u;
     u.stack = stack;
@@ -116,5 +103,28 @@ void task_run(void *stack, int stack_size, start_fun _start_fun)
     u.reg[0] = (uint32_t)stack+stack_size;
     u.reg[4] = (uint32_t)stack+stack_size;
     u._start_fun = _start_fun;
-    push_task(u);
+    u.parent = current;
+    u.result = 0;
+    return push_task(u);
+}
+
+void* get_result() {
+    return tasks[current].handler.result;
+}
+
+void set_result(void* result) {
+    tasks[tasks[current].handler.parent].status = 1;
+    tasks[tasks[current].handler.parent].handler.result = result;
+}
+
+void set_waiting() {
+    tasks[tasks[current].handler.parent].status = 3;
+}
+
+void set_waitaddr(u_int64_t a){
+    tasks[current].handler.waitaddr = a;
+}
+
+u_int64_t get_waitaddr(){
+    return tasks[current].handler.waitaddr;
 }
