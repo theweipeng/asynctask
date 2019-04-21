@@ -104,9 +104,10 @@ _task_await:
     callq _set_waitaddr
     push %rdi
     callq _get_rip
-    
+    pushq %rax
 
     callq _get_is_running
-    cmpq $0, %rax
+    movq %rax, %r12
+    cmpq $0, %r12
     je .not_running
     jmp .running
