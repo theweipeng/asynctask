@@ -23,7 +23,7 @@ struct task
     int status; // 0: stop 1: running 2: new 3: waiting
     taskinfo_t handler;
 };
-task_t* task_run(void *stack, int stack_size, start_fun _start_fun);
+task_t* task_run(u_int64_t stack_size, start_fun _start_fun);
 void task_yield();
 void start_loop();
 void* task_await(task_t*);

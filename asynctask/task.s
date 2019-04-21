@@ -38,6 +38,7 @@ _run_and_store:
     movq %r8, 32(%rdi)
     push %r8
     popq %rdx
+
     callq *%rsi
     movq %rax, %rdi
     callq _set_current_task_done
@@ -66,15 +67,20 @@ _run_and_restore:
 
     pushq %r8
 
+    callq _set_currenttaskflag_done
+
+
+    callq _get_ret_addr
+    movq %r8, -8(%rax)
+
     movq 0(%rsi), %rbp 
     movq 8(%rsi), %rsp
     movq 16(%rsi), %rbx
     movq 24(%rsi),%rdi
     movq 32(%rsi),%rsi
 
-    callq _set_currenttaskflag_done
-
     jmp *%rsi
+    retq
 
 .align    4
 .globl   run_and_store2
@@ -101,14 +107,6 @@ _task_yield:
     call _get_fun_to_switch_to_main
     movq %rax, %rsi
     jmp _run_and_store2
-
-
-.align    4
-.globl   get_rax
-.globl    _get_rax
-get_rax:
-_get_rax:
-retq
 
 
 .align    4

@@ -4,7 +4,8 @@
 #include "task.h"
 
 
-void* fun2()
+
+int fun2()
 {
     printf("%s", "fun2 start\n");
     task_yield();
@@ -12,19 +13,18 @@ void* fun2()
     return 2;
 }
 
-void* fun1()
+int fun1()
 {
     printf("%s", "fun1 start\n");
-    int a = task_await(task_run(10, 4096, fun2));
+    int a = task_await(task_run(4096, fun2));
     printf("%d", a);
     printf("%s", "fun1 end\n");
     return 0;
 }
 
-
 int main()
 {
-    task_run(10, 4096, fun1);
+    task_run(4096, fun1);
     start_loop();
     return 0;
 }
