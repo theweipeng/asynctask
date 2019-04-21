@@ -51,20 +51,12 @@ void start_loop()
     {
         for (int i = 0; i < TASKLENGTH; i++)
         {
-            if(tasks[i].status == 1)
+            if(tasks[i].status == 1 || tasks[i].status == 2)
             {
-                current = i;
-                run_and_restore(&(main_task.handler), &(tasks[i].handler));
-                
-                if (currenttaskflag == 0) {
-                    tasks[i].status = 0;
-                    tasks[tasks[i].handler.parent].status = 1;
-                    tasks[tasks[i].handler.parent].handler.result = 886;
+                if (tasks[i].status == 2) {
+                    tasks[i].status = 1;
                 }
-            } else if (tasks[i].status == 2)
-            {
                 current = i;
-                tasks[i].status = 1;
                 run_and_restore(&(main_task.handler), &(tasks[i].handler));
                 if (currenttaskflag == 0) {
                     tasks[i].status = 0;
