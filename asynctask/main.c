@@ -20,7 +20,7 @@ int fun1()
     printf("%d", a);
     printf("%s", "\n");
     printf("%s", "fun1 end\n");
-    return 0;
+    return 10086;
 }
 
 int main()

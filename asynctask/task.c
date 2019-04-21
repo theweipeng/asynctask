@@ -82,10 +82,15 @@ void set_result(u_int64_t result) {
     tasks[tasks[current].handler.parent].handler.result = result;
 }
 
+u_int64_t get_result() {
+    return tasks[current].handler.result;
+}
+
 void wrapper() {
     u_int64_t ret = tasks[current].handler._start_fun();
     set_current_task_done();
     set_result(ret);
+    task_switch_to_main();
 }
 
 task_t* task_run(u_int64_t stack_size, start_fun _start_fun)
@@ -103,11 +108,9 @@ task_t* task_run(u_int64_t stack_size, start_fun _start_fun)
     return push_task(u);
 }
 
-void* get_result() {
-    return tasks[current].handler.result;
+int get_is_running() {
+    return tasks[current].status == 1;
 }
-
-
 
 void set_waiting() {
     tasks[tasks[current].handler.parent].status = 3;

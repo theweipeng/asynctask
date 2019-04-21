@@ -80,17 +80,17 @@ pushq %rax
 retq
 
 
-.has_rsult:
-popq %rdi
-pushq %rax
-callq _get_waitaddr
-movq %rax, %rdi
-popq %rax
-jmp *%rdi
+.running:
+    popq %rdi
+    pushq %rax
+    callq _get_waitaddr
+    movq %rax, %rdi
+    popq %rax
+    callq _get_result
+    jmp *%rdi
 
-.not_has_rsult:
-callq _set_waiting
-jmp _task_yield
+.not_running:
+    jmp _task_yield
 
 
 
@@ -99,13 +99,14 @@ jmp _task_yield
 .globl    _task_await
 task_await:
 _task_await:
+    callq _set_waiting
     popq %rdi
     callq _set_waitaddr
     push %rdi
     callq _get_rip
     pushq %rax
 
-    callq _get_result
+    callq _get_is_running
     cmpq $0, %rax
-    je .not_has_rsult
-    jmp .has_rsult
+    je .not_running
+    jmp .running
