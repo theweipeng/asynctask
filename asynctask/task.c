@@ -17,19 +17,10 @@ void run_and_restore(taskinfo_t* t, start_fun _start_fun);
 #define TASKDONEFLAG 108
 
 int current;
-int currenttaskflag;
 task_t main_task;
 task_t tasks[TASKLENGTH];
 task_t main_task = {0,0};
 
-
-void set_currenttaskflag_done() {
-    currenttaskflag = 0;
-}
-
-void set_currenttaskflag_running() {
-    currenttaskflag = 1;
-}
 
 task_t* push_task(taskinfo_t t)
 {
@@ -58,11 +49,6 @@ void start_loop()
                 }
                 current = i;
                 run_and_restore(&(main_task.handler), &(tasks[i].handler));
-                if (currenttaskflag == 0) {
-                    tasks[i].status = 0;
-                    tasks[tasks[i].handler.parent].status = 1;
-                    tasks[tasks[i].handler.parent].handler.result = 886;
-                }
             }
         }
     }
@@ -91,6 +77,17 @@ void set_current_task_done() {
     tasks[current].status = 0;
 }
 
+void set_result(u_int64_t result) {
+    tasks[tasks[current].handler.parent].status = 1;
+    tasks[tasks[current].handler.parent].handler.result = result;
+}
+
+void wrapper() {
+    u_int64_t ret = tasks[current].handler._start_fun();
+    set_current_task_done();
+    set_result(ret);
+}
+
 task_t* task_run(u_int64_t stack_size, start_fun _start_fun)
 {
     taskinfo_t u;
@@ -99,7 +96,7 @@ task_t* task_run(u_int64_t stack_size, start_fun _start_fun)
     u.stack_size = stack_size;
     u.reg[0] = u.stack + stack_size;
     u.reg[1] = u.stack + stack_size - 8;
-    u.reg[4] = _start_fun;
+    u.reg[4] = wrapper;
     u._start_fun = _start_fun;
     u.parent = current;
     u.result = 0;
@@ -110,10 +107,7 @@ void* get_result() {
     return tasks[current].handler.result;
 }
 
-void set_result(void* result) {
-    tasks[tasks[current].handler.parent].status = 1;
-    tasks[tasks[current].handler.parent].handler.result = result;
-}
+
 
 void set_waiting() {
     tasks[tasks[current].handler.parent].status = 3;

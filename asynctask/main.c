@@ -18,6 +18,7 @@ int fun1()
     printf("%s", "fun1 start\n");
     int a = task_await(task_run(4096, fun2));
     printf("%d", a);
+    printf("%s", "\n");
     printf("%s", "fun1 end\n");
     return 0;
 }

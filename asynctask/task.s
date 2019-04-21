@@ -32,9 +32,6 @@ _run_and_restore:
 
     pushq %r8
 
-    callq _set_currenttaskflag_done
-
-
     callq _get_ret_addr
     movq %r8, -8(%rax)
 
@@ -66,7 +63,6 @@ _run_and_store:
 task_yield:
 _task_yield:
     popq %rdx
-    call _set_currenttaskflag_running
     call _get_current_taskinfo
     movq %rax, %rdi
     call _get_fun_to_switch_to_main
