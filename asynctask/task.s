@@ -82,10 +82,11 @@ retq
 
 .running:
     popq %rdi
-    pushq %rax
+    popq %rdi
+    
     callq _get_waitaddr
     movq %rax, %rdi
-    popq %rax
+
     callq _get_result
     jmp *%rdi
 
