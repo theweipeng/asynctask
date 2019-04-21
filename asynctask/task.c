@@ -35,6 +35,10 @@ task_t* push_task(taskinfo_t t)
     return 0;
 }
 
+void init_loop() {
+    current = -1;
+}
+
 void start_loop()
 {
     main_task.status = 1;
@@ -78,6 +82,7 @@ void set_current_task_done() {
 }
 
 void set_result(u_int64_t result) {
+    if (tasks[current].handler.parent == -1) return;
     tasks[tasks[current].handler.parent].status = 1;
     tasks[tasks[current].handler.parent].handler.result = result;
 }
@@ -113,7 +118,7 @@ int get_is_running() {
 }
 
 void set_waiting() {
-    tasks[tasks[current].handler.parent].status = 3;
+    tasks[current].status = 3;
 }
 
 void set_waitaddr(u_int64_t a){

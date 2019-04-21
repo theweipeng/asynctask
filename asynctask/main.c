@@ -10,7 +10,7 @@ int fun2()
     printf("%s", "fun2 start\n");
     task_yield();
     printf("%s", "fun2 end\n");
-    return 2;
+    return 0;
 }
 
 int fun1()
@@ -25,6 +25,7 @@ int fun1()
 
 int main()
 {
+    init_loop();
     task_run(4096, fun1);
     start_loop();
     return 0;
