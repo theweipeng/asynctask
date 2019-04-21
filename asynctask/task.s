@@ -1,19 +1,4 @@
 .align    4
-.globl    store
-.globl    _store
-store:
-_store: 
-    popq %r8
-    movq %rbp, 0(%rdi)
-    movq %rsp, 8(%rdi)
-    movq %rbx, 16(%rdi)
-    movq %rdi, 24(%rdi)
-    movq %r8, 32(%rdi)
-    push %r8
-    retq
-
-
-.align    4
 .globl    restore
 .globl    _restore
 restore:
