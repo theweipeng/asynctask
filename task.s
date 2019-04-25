@@ -2,13 +2,19 @@
 .globl    restore
 .globl    _restore
 restore:
-_restore: 
-    movq 0(%rdi), %rbp 
+_restore:
+    movq 0(%rdi), %rbp
     movq 8(%rdi), %rsp
     movq 16(%rdi), %rbx
-    movq 24(%rdi),%rdi
-    movq 32(%rdi),%rsi
-    jmp *%rsi
+    movq 24(%rdi),%r15
+    movq 32(%rdi),%rdi
+    movq 40(%rdi), %rsi
+    movq 48(%rdi), %rdx
+    movq 56(%rdi), %rcx
+    movq 64(%rdi), %r8
+    movq 72(%rdi), %r9
+
+    jmp *%r15
 
 .align    4
 .globl   get_fu_run_status
@@ -23,53 +29,70 @@ _get_fu_run_status:
 .globl    _run_and_restore
 run_and_restore:
 _run_and_restore: 
-    popq %r8
+    popq %r15
     movq %rbp, 0(%rdi)
     movq %rsp, 8(%rdi)
     movq %rbx, 16(%rdi)
-    movq %rdi, 24(%rdi)
-    movq %r8, 32(%rdi)
+    movq %r15, 24(%rdi)
+    movq %rdi, 32(%rdi)
+    movq %rsi, 40(%rdi)
+    movq %rdx, 48(%rdi)
+    movq %rcx, 56(%rdi)
+    movq %r8, 64(%rdi)
+    movq %r9, 72(%rdi)
 
-    pushq %r8
+//0:rbp,1:rsp,2:rbx, 3: rip
+    // 参数  4:rdi, 5:rsi, 6 %rdx, 7 %rcx, 8 %r8, 9 %r9
+
+    pushq %r15
 
     pushq %rsi
     callq _get_ret_addr
-    movq %r8, -8(%rax)
+    movq %r15, -8(%rax)
     popq %rsi
 
     movq 0(%rsi), %rbp 
     movq 8(%rsi), %rsp
     movq 16(%rsi), %rbx
-    movq 24(%rsi),%rdi
-    movq 32(%rsi),%rsi
+    movq 24(%rsi),%r15
+    movq 32(%rsi),%rdi
+    movq 48(%rsi), %rdx
+    movq 56(%rsi), %rcx
+    movq 64(%rsi), %r8
+    movq 72(%rsi), %r9
+    movq 40(%rsi), %rsi
 
-    jmp *%rsi
+
+    jmp *%r15
     retq
 
-.align    4
-.globl   run_and_store
-.globl    _run_and_store
-run_and_store:
-_run_and_store:
-    movq %rbp, 0(%rdi)
-    movq %rsp, 8(%rdi)
-    movq %rbx, 16(%rdi)
-    movq %rdi, 24(%rdi)
-    movq %rdx, 32(%rdi)
-
-    jmp *%rsi
 
 .align    4
 .globl   task_yield
 .globl    _task_yield
 task_yield:
 _task_yield:
-    popq %rdx
+    popq %r12
+
     call _get_current_taskinfo
-    movq %rax, %rdi
+    movq %rax, %r13
+
+    movq %rbp, 0(%r13)
+    movq %rsp, 8(%r13)
+    movq %rbx, 16(%r13)
+    movq %r12, 24(%r13)
+    movq %rdi, 32(%r13)
+    movq %rsi, 40(%r13)
+    movq %rdx, 48(%r13)
+    movq %rcx, 56(%r13)
+    movq %r8, 64(%r13)
+    movq %r9, 72(%r13)
+
+
     call _get_fun_to_switch_to_main
-    movq %rax, %rsi
-    jmp _run_and_store
+    movq %rax, %r12
+
+    jmp *%r12
 
 
 .align    4
@@ -87,10 +110,10 @@ retq
     popq %rdi
     
     callq _get_waitaddr
-    movq %rax, %rdi
+    movq %rax, %r12
 
     callq _get_result
-    jmp *%rdi
+    jmp *%r12
 
 .not_running:
     jmp _task_yield
@@ -105,7 +128,8 @@ _task_await:
     callq _set_waiting
     popq %rdi
     callq _set_waitaddr
-    push %rdi
+    pushq %rdi
+
     callq _get_rip
     pushq %rax
 

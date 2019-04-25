@@ -8,8 +8,6 @@ void store(taskinfo_t* t);
 
 void restore(taskinfo_t* t);
 
-void run_and_store(taskinfo_t* t, start_fun _start_fun);
-
 void run_and_restore(taskinfo_t* t, start_fun _start_fun);
 
 
@@ -98,7 +96,10 @@ void wrapper() {
     task_switch_to_main();
 }
 
-task_t* task_run(u_int64_t stack_size, start_fun _start_fun)
+//0:rbp,1:rsp,2:rbx, 3: rip
+// 参数  4:rdi, 5:rsi, 6 %rdx, 7 %rcx, 8 %r8, 9 %r9
+
+task_t* task_run(u_int64_t stack_size, start_fun _start_fun, u_int64_t args[])
 {
     taskinfo_t u;
     void* stack = malloc(stack_size);
@@ -106,7 +107,14 @@ task_t* task_run(u_int64_t stack_size, start_fun _start_fun)
     u.stack_size = stack_size;
     u.reg[0] = u.stack + stack_size;
     u.reg[1] = u.stack + stack_size - 8;
-    u.reg[4] = wrapper;
+    u.reg[3] = wrapper;
+    u.reg[4] = args[0];
+    u.reg[5] = args[1];
+    u.reg[6] = args[2];
+    u.reg[7] = args[3];
+    u.reg[8] = args[4];
+    u.reg[9] = args[5];
+
     u._start_fun = _start_fun;
     u.parent = current;
     u.result = 0;
