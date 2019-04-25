@@ -27,3 +27,4 @@ task_t* task_run(u_int64_t stack_size, start_fun _start_fun);
 void task_yield();
 void start_loop();
 void* task_await(task_t*);
+void init_loop();
