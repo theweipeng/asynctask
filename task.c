@@ -13,7 +13,7 @@ void run_and_store(taskinfo_t* t, start_fun _start_fun);
 void run_and_restore(taskinfo_t* t, start_fun _start_fun);
 
 
-#define TASKLENGTH 3
+#define TASKLENGTH 100000
 #define TASKDONEFLAG 108
 
 int current;
