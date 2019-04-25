@@ -36,12 +36,23 @@ int fun1(u_int64_t s)
     return 10086;
 }
 
+int fun4(u_int64_t s)
+{
+
+    printf("%s", "fun4 start\n");
+    printf("%d", s);
+    printf("%s", "fun4 end\n");
+    return 10086;
+}
+
+
 int main()
 {
     init_loop();
     u_int64_t a[] = {1};
     task_run(4096, fun1, a);
     task_run(4096, fun1, a);
+    task_run(4096, fun4, a);
     start_loop();
     return 0;
 }
