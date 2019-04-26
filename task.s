@@ -41,9 +41,6 @@ _run_and_restore:
     movq %r8, 64(%rdi)
     movq %r9, 72(%rdi)
 
-//0:rbp,1:rsp,2:rbx, 3: rip
-    // 参数  4:rdi, 5:rsi, 6 %rdx, 7 %rcx, 8 %r8, 9 %r9
-
     pushq %r15
 
     pushq %rsi

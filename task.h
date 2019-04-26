@@ -9,7 +9,6 @@ struct taskinfo
     u_int64_t parent;
     void *stack;
     start_fun _start_fun;
-    void *start_arg;
     u_int64_t stack_size;
 };
 
