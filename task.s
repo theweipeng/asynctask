@@ -47,7 +47,7 @@ _run_and_restore:
     pushq %r15
 
     pushq %rsi
-    callq get_ret_addr
+    callq _get_ret_addr
     movq %r15, -8(%rax)
     popq %rsi
 
@@ -74,7 +74,7 @@ task_yield:
 _task_yield:
     popq %r12
 
-    call get_current_taskinfo
+    call _get_current_taskinfo
     movq %rax, %r13
 
     movq %rbp, 0(%r13)
@@ -89,7 +89,7 @@ _task_yield:
     movq %r9, 72(%r13)
 
 
-    call get_fun_to_switch_to_main
+    call _get_fun_to_switch_to_main
     movq %rax, %r12
 
     jmp *%r12
@@ -109,10 +109,10 @@ retq
     popq %rdi
     popq %rdi
     
-    callq get_waitaddr
+    callq _get_waitaddr
     movq %rax, %r12
 
-    callq get_result
+    callq _get_result
     jmp *%r12
 
 .not_running:
@@ -125,15 +125,15 @@ retq
 .globl    _task_await
 task_await:
 _task_await:
-    callq set_waiting
+    callq _set_waiting
     popq %rdi
-    callq set_waitaddr
+    callq _set_waitaddr
     pushq %rdi
 
     callq _get_rip
     pushq %rax
 
-    callq get_is_running
+    callq _get_is_running
     movq %rax, %r12
     cmpq $0, %r12
     je .not_running
