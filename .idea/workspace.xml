@@ -11,11 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="42a59e8b-e374-4072-9747-f66671551cf4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task.h" beforeDir="false" afterPath="$PROJECT_DIR$/task.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/task.s" beforeDir="false" afterPath="$PROJECT_DIR$/task.s" afterDir="false" />
-    </list>
+    <list default="true" id="42a59e8b-e374-4072-9747-f66671551cf4" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/asynctask/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,11 +30,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="1" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
+            <state relative-caret-position="390">
+              <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -46,10 +42,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/task.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1007">
+            <state relative-caret-position="-852">
               <caret line="49" column="24" lean-forward="true" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
             </state>
           </provider>
@@ -103,10 +99,10 @@
       <find>run_and_store</find>
       <find>set_waitaddr</find>
       <find>get_current_taskinfo</find>
-      <find>stack_size</find>
       <find>set_result</find>
       <find>fun3</find>
       <find>task_run</find>
+      <find>stack_size</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -209,7 +205,7 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22389127" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22389127" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -222,7 +218,7 @@
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Messages" order="8" weight="0.51566267" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5007153" side_tool="true" weight="0.32891566" />
-      <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49928468" visible="true" weight="0.32771084" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="10" sideWeight="0.49928468" visible="true" weight="0.32771084" />
       <window_info anchor="bottom" id="CMake" order="11" weight="0.44758284" />
       <window_info anchor="bottom" id="Terminal" order="12" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
@@ -359,16 +355,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="1" selection-start-line="24" selection-start-column="1" selection-end-line="24" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/task.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -378,8 +364,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/task.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1007">
+        <state relative-caret-position="-852">
           <caret line="49" column="24" lean-forward="true" selection-start-line="49" selection-start-column="24" selection-end-line="49" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="47" lean-forward="true" selection-start-line="47" selection-end-line="47" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
